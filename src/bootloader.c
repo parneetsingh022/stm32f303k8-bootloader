@@ -2,14 +2,7 @@
 #define VTOR_REGISTER      (*((volatile unsigned int *) 0xE000ED08))
 #define APP_START_ADDRESS  0x08004000
 
-
-int main(void);
-
-__attribute__((section(".isr_vectors")))
-void *vector_table[98] = {
-    (void*) 0x20003000, // stack pointer
-    (void*) main, // Reset vector
-};
+int main();
 
 void jump_to_application(void) {
     // Firewall the CPU. Disable all hardware interrupts.
