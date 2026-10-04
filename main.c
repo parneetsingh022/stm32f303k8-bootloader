@@ -5,7 +5,7 @@
 
 int main(void);
 
-__attribute__((section(".vectors")))
+__attribute__((section(".isr_vectors")))
 void *vector_table[98] = {
     (void*) 0x20003000, // stack pointer
     (void*) main, // Reset vector

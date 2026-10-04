@@ -5,7 +5,7 @@ MEMORY {
 
 SECTIONS {
   .text : {
-    *(.vectors)   /*  vector table at the absolute top */
+    *(.isr_vectors)   /*  vector table at the absolute top */
     *(.text*)
   } > FLASH
 }
