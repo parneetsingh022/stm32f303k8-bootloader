@@ -4,13 +4,16 @@ TARGET := bootloader
 # Build directory
 BUILD_DIR := build
 
+# Source directories for the project
+SRC_DIRS := bootloader drivers
+
 # Toolchain definitions
 CC := arm-none-eabi-gcc
 OBJCOPY := arm-none-eabi-objcopy
 STFLASH := st-flash
 
-# Find every C source file under src/ and its subdirectories
-SRCS := $(shell find src -type f -name '*.c')
+# Find every C source file under the specified directories
+SRCS := $(shell find $(SRC_DIRS) -type f -name '*.c')
 OBJS := $(patsubst %.c,$(BUILD_DIR)/%.o,$(SRCS))
 DEPS := $(OBJS:.o=.d)
 
@@ -39,7 +42,8 @@ $(BUILD_DIR)/$(TARGET).elf: $(OBJS) $(LINKER_SCRIPT)
 	$(CC) $(CFLAGS) $(LDFLAGS) $(OBJS) -o $@
 
 # Compile each source file into a matching object file.
-# For example: src/uart.c -> build/src/uart.o
+# For example: bootloader/main.c -> build/bootloader/main.o
+#              drivers/uart.c     -> build/drivers/uart.o
 $(BUILD_DIR)/%.o: %.c
 	@mkdir -p $(@D)
 	$(CC) $(CFLAGS) -c $< -o $@
